@@ -17,12 +17,12 @@
 # include <string.h>
 # include <stddef.h>
 # include <stdio.h>
-//# define BUFFER_SIZE 99
+# define BUFFER_SIZE 42
 
 char	*get_next_line(int fd);
 char	*ft_realloc(char *s1, int i);
 size_t	ft_strlcpy(char *dst, const char *src, size_t size);
-int		ft_copynl(char *extra, int baits, char *string, int aux);
-int		leer(int fd, char *extra);
+int		ft_copynl(char *extra, int baits, char *string, int aux); // Reverted to original name
+int		leer(int fd, char *extra); // Reverted to original name
 
 #endif

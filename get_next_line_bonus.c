@@ -6,107 +6,163 @@
 /*   By: eniglesi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 21:46:34 by eniglesi          #+#    #+#             */
-/*   Updated: 2022/02/16 21:46:36 by eniglesi         ###   ########.fr       */
+/*   Updated: 2023/11/15 XXXXXX by a-swe-agent      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line_bonus.h"
 
+#define MAX_FD 1024
+
+// ft_calloc from get_next_line.c (corrected version)
 static void	*ft_calloc(size_t nmemb, size_t size)
 {
 	void	*a;
-	int		n;
+	size_t	n;
 
 	n = nmemb * size;
-	a = malloc(nmemb * size + 1);
+	a = malloc(n);
 	if (!a)
 		return (NULL);
-	while (n > 0)
-	{
-		n--;
-		((char *)a)[n] = '\0';
+
+	unsigned char *p = (unsigned char *)a;
+	size_t i = 0;
+	while (i < n) {
+		p[i] = '\0';
+		i++;
 	}
 	return (a);
 }
 
-static int	fakexplicator(char *extra)
+// find_newline_in_buffer from get_next_line.c
+static int	find_newline_in_buffer(char *buffer)
 {
 	int	i;
 
 	i = 0;
-	while (extra[i] != '\n' && extra[i])
+	while (buffer[i] != '\0')
+	{
+		if (buffer[i] == '\n')
+			return (i);
 		i++;
-	if (extra[i] == '\n')
-		return (i);
+	}
 	return (-1);
 }
 
-static char	*me_fumo_4_porros(char *string, char *extra, int aux, int u)
+// copy_from_buffer_to_string from get_next_line.c
+static int	copy_from_buffer_to_string(char *current_line_buffer, char *static_buffer_for_fd)
 {
 	int	i;
-	int	j;
 
 	i = 0;
-	j = 0;
-	if (u == 1)
+	while (static_buffer_for_fd[i] != '\0' && i < BUFFER_SIZE)
 	{
-		free(string);
+		current_line_buffer[i] = static_buffer_for_fd[i];
+		if (static_buffer_for_fd[i] == '\n')
+		{
+			i++;
+			break;
+		}
+		i++;
+	}
+	current_line_buffer[i] = '\0';
+	return (i);
+}
+
+// finalize_line_and_update_buffer from get_next_line.c
+static char	*finalize_line_and_update_buffer(char *current_line_buffer, char *static_buffer_for_fd, int current_line_len, int error_or_eof_flag)
+{
+	char	*returned_line;
+	int		nl_idx_in_static;
+
+	if (error_or_eof_flag == 1)
+	{
+		free(current_line_buffer);
 		return (NULL);
 	}
-	if (extra)
+
+	if (current_line_len == 0) {
+		free(current_line_buffer);
+		return (NULL);
+	}
+
+	if (current_line_len > 0 && current_line_buffer[current_line_len - 1] == '\n')
 	{
-		while (extra[i] != '\n' && extra[i])
-			i++;
-		while ((&extra[i + 1])[j] != '\0')
-			j++;
-		if (extra[i] == '\n')
+		nl_idx_in_static = find_newline_in_buffer(static_buffer_for_fd);
+		if (nl_idx_in_static != -1)
 		{
-			ft_strlcpy(extra, &extra[i + 1], j + 1);
-			string[aux] = '\n';
+			ft_strlcpy(static_buffer_for_fd, &static_buffer_for_fd[nl_idx_in_static + 1], BUFFER_SIZE + 1);
+		} else {
+			static_buffer_for_fd[0] = '\0';
 		}
-		else if (!extra[i])
-			extra[0] = 0;
 	}
-	return (ft_realloc(string, 0));
-}
-
-static int	repet(char *string, char *extra)
-{
-	int	aux;
-
-	aux = 0;
-	while (extra[aux] != '\n' && extra[aux])
+	else
 	{
-		string[aux] = extra[aux];
-		aux++;
+		static_buffer_for_fd[0] = '\0';
 	}
-	return (aux);
+
+	returned_line = (char *)malloc(sizeof(char) * (current_line_len + 1));
+	if (!returned_line)
+	{
+		free(current_line_buffer);
+		static_buffer_for_fd[0] = '\0';
+		return (NULL);
+	}
+	ft_strlcpy(returned_line, current_line_buffer, current_line_len + 1);
+
+	free(current_line_buffer);
+	return (returned_line);
 }
 
+// get_next_line function adapted for bonus
 char	*get_next_line(int fd)
 {
-	char			*string;
-	static char		extra[BUFFER_SIZE + 1];
-	int				baits;
-	int				aux;
+	char			*current_line_buffer;
+	static char		static_read_buffer[MAX_FD][BUFFER_SIZE + 1];
+	int				bytes_read;
+	int				current_line_len;
+	char			*temp_ptr;
 
-	string = ft_calloc(sizeof(char), BUFFER_SIZE + 1);
-	if (string == NULL)
+	if (fd < 0 || fd >= MAX_FD || BUFFER_SIZE <= 0) // Added MAX_FD check
 		return (NULL);
-	aux = repet(string, extra);
-	if (extra[aux])
-		return (me_fumo_4_porros(string, extra, aux, 0));
-	while (fakexplicator(extra) == -1)
+
+	current_line_buffer = (char *)ft_calloc(BUFFER_SIZE + 1, sizeof(char));
+	if (!current_line_buffer)
+		return (NULL);
+
+	current_line_len = copy_from_buffer_to_string(current_line_buffer, static_read_buffer[fd]);
+
+	if (current_line_len > 0 && current_line_buffer[current_line_len - 1] == '\n')
 	{
-		baits = leer(fd, extra);
-		if (baits == 0)
-			break ;
-		string = ft_realloc(string, baits);
-		if (string == NULL || extra[0] == 0)
-			return (me_fumo_4_porros(string, extra, aux, 1));
-		aux = ft_copynl(extra, baits, string, aux);
+		return (finalize_line_and_update_buffer(current_line_buffer, static_read_buffer[fd], current_line_len, 0));
 	}
-	if (baits == 0 && !string[0])
-		return (me_fumo_4_porros(string, extra, aux, 1));
-	return (me_fumo_4_porros(string, extra, aux, 0));
+
+	while (!(current_line_len > 0 && current_line_buffer[current_line_len - 1] == '\n'))
+	{
+		bytes_read = leer(fd, static_read_buffer[fd]);
+
+		if (bytes_read == -1)
+		{
+			free(current_line_buffer);
+			static_read_buffer[fd][0] = '\0'; // Clear buffer for specific fd
+			return (NULL);
+		}
+
+		if (bytes_read == 0)
+		{
+			return (finalize_line_and_update_buffer(current_line_buffer, static_read_buffer[fd], current_line_len, 0));
+		}
+
+		temp_ptr = ft_realloc(current_line_buffer, bytes_read);
+		if (!temp_ptr) {
+			free(current_line_buffer);
+			static_read_buffer[fd][0] = '\0'; // Clear buffer for specific fd
+			return (NULL);
+		}
+		current_line_buffer = temp_ptr;
+
+		current_line_len = ft_copynl(static_read_buffer[fd], bytes_read, current_line_buffer, current_line_len);
+	}
+
+	return (finalize_line_and_update_buffer(current_line_buffer, static_read_buffer[fd], current_line_len, 0));
 }
