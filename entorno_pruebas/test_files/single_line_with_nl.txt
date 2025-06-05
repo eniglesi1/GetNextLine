@@ -1,0 +1,1 @@
+This is a single line with a newline character at the end.
