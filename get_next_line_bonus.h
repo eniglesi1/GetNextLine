@@ -12,6 +12,7 @@
 
 #ifndef GET_NEXT_LINE_BONUS_H
 # define GET_NEXT_LINE_BONUS_H
+# define MAX_FD 4096
 # include <unistd.h>
 # include <stdlib.h>
 # include <string.h>
