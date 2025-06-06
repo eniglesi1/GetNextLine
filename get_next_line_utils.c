@@ -78,6 +78,8 @@ int	leer(int fd, char *extra)
 {
 	int	baits;
 
+	if (fd < 0 || fd > FOPEN_MAX)
+		return (0);
 	baits = read(fd, extra, BUFFER_SIZE);
 	extra[baits] = 0;
 	return (baits);

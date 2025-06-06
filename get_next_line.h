@@ -17,7 +17,10 @@
 # include <string.h>
 # include <stddef.h>
 # include <stdio.h>
-//# define BUFFER_SIZE 99
+
+#ifndef BUFFER_SIZE
+# define BUFFER_SIZE 42
+#endif
 
 char	*get_next_line(int fd);
 char	*ft_realloc(char *s1, int i);

@@ -29,7 +29,7 @@ static void	*ft_calloc(size_t nmemb, size_t size)
 	return (a);
 }
 
-static int	fakexplicator(char *extra)
+static int	ft_is_line(char *extra)
 {
 	int	i;
 
@@ -41,7 +41,7 @@ static int	fakexplicator(char *extra)
 	return (-1);
 }
 
-static char	*me_fumo_4_porros(char *string, char *extra, int aux, int u)
+static char	*clean_buf_return_line(char *string, char *extra, int aux, int u)
 {
 	int	i;
 	int	j;
@@ -70,7 +70,7 @@ static char	*me_fumo_4_porros(char *string, char *extra, int aux, int u)
 	return (ft_realloc(string, 0));
 }
 
-static int	repet(char *string, char *extra)
+static int	copy_nl(char *string, char *extra)
 {
 	int	aux;
 
@@ -93,20 +93,20 @@ char	*get_next_line(int fd)
 	string = ft_calloc(sizeof(char), BUFFER_SIZE + 1);
 	if (string == NULL)
 		return (NULL);
-	aux = repet(string, extra);
+	aux = copy_nl(string, extra);
 	if (extra[aux])
-		return (me_fumo_4_porros(string, extra, aux, 0));
-	while (fakexplicator(extra) == -1)
+		return (clean_buf_return_line(string, extra, aux, 0));
+	while (ft_is_line(extra) == -1)
 	{
 		baits = leer(fd, extra);
 		if (baits == 0)
 			break ;
 		string = ft_realloc(string, baits);
 		if (string == NULL || extra[0] == 0)
-			return (me_fumo_4_porros(string, extra, aux, 1));
+			return (clean_buf_return_line(string, extra, aux, 1));
 		aux = ft_copynl(extra, baits, string, aux);
 	}
 	if (baits == 0 && !string[0])
-		return (me_fumo_4_porros(string, extra, aux, 1));
-	return (me_fumo_4_porros(string, extra, aux, 0));
+		return (clean_buf_return_line(string, extra, aux, 1));
+	return (clean_buf_return_line(string, extra, aux, 0));
 }

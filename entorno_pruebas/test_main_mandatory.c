@@ -50,7 +50,7 @@ void run_test(const char *test_name, const char *file_path, const char *expected
 
     while ((line = get_next_line(fd)) != NULL) {
         printf("Recibido: '%s'\n", line);
-        fprintf(log_fp, "%s\n", line);
+        fprintf(log_fp, "%s", line);
         if (i < expected_line_count) {
             if (strcmp(line, expected_output[i]) != 0) {
                 pass = 0;
