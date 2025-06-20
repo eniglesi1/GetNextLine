@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eniglesi <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: eiglesia <eiglesia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 21:46:34 by eniglesi          #+#    #+#             */
-/*   Updated: 2022/02/16 21:46:36 by eniglesi         ###   ########.fr       */
+/*   Updated: 2025/06/20 23:06:42 by eiglesia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,18 +27,6 @@ static void	*ft_calloc(size_t nmemb, size_t size)
 		((char *)a)[n] = '\0';
 	}
 	return (a);
-}
-
-static int	ft_is_line(char *extra)
-{
-	int	i;
-
-	i = 0;
-	while (extra[i] != '\n' && extra[i])
-		i++;
-	if (extra[i] == '\n')
-		return (i);
-	return (-1);
 }
 
 static char	*clean_buf_return_line(char *string, char *extra, int aux, int u)
@@ -83,7 +71,7 @@ static int	copy_nl(char *string, char *extra)
 	return (aux);
 }
 
-char	*get_line(int fd, char *extra)
+static char	*get_line(int fd, char *extra)
 {
 	char			*string;
 	int				baits;
@@ -98,14 +86,14 @@ char	*get_line(int fd, char *extra)
 	while (ft_is_line(extra) == -1)
 	{
 		baits = leer(fd, extra);
-		if (baits == 0)
+		if (baits == 0 || baits == -1)
 			break ;
 		string = ft_realloc(string, baits);
 		if (string == NULL || extra[0] == 0)
 			return (clean_buf_return_line(string, extra, aux, 1));
 		aux = ft_copynl(extra, baits, string, aux);
 	}
-	if (baits == 0 && !string[0])
+	if ((baits == 0 && !string[0]) || baits == -1)
 		return (clean_buf_return_line(string, extra, aux, 1));
 	return (clean_buf_return_line(string, extra, aux, 0));
 }
@@ -113,6 +101,7 @@ char	*get_line(int fd, char *extra)
 char	*get_next_line(int fd)
 {
 	static char	extra[FOPEN_MAX][BUFFER_SIZE + 1];
+
 	if (fd > FOPEN_MAX || fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
 	return (get_line(fd, extra[fd]));

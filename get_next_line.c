@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eniglesi <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: eiglesia <eiglesia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/13 12:47:14 by eniglesi          #+#    #+#             */
-/*   Updated: 2022/01/13 12:47:19 by eniglesi         ###   ########.fr       */
+/*   Updated: 2025/06/13 16:24:12 by eiglesia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,14 +99,14 @@ char	*get_next_line(int fd)
 	while (ft_is_line(extra) == -1)
 	{
 		baits = leer(fd, extra);
-		if (baits == 0)
+		if (baits == 0 || baits == -1)
 			break ;
 		string = ft_realloc(string, baits);
 		if (string == NULL || extra[0] == 0)
 			return (clean_buf_return_line(string, extra, aux, 1));
 		aux = ft_copynl(extra, baits, string, aux);
 	}
-	if (baits == 0 && !string[0])
+	if ((baits == 0 && !string[0]) || baits == -1)
 		return (clean_buf_return_line(string, extra, aux, 1));
 	return (clean_buf_return_line(string, extra, aux, 0));
 }

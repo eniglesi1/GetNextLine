@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_bonus.h                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eniglesi <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: eiglesia <eiglesia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 21:47:56 by eniglesi          #+#    #+#             */
-/*   Updated: 2022/02/16 21:48:01 by eniglesi         ###   ########.fr       */
+/*   Updated: 2025/06/20 23:10:48 by eiglesia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,15 @@
 # include <stddef.h>
 # include <stdio.h>
 
-#ifndef BUFFER_SIZE
-# define BUFFER_SIZE 42
-#endif
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 42
+# endif
 
 char	*get_next_line(int fd);
 char	*ft_realloc(char *s1, int i);
 size_t	ft_strlcpy(char *dst, const char *src, size_t size);
 int		ft_copynl(char *extra, int baits, char *string, int aux);
 int		leer(int fd, char *extra);
+int		ft_is_line(char *extra);
 
 #endif

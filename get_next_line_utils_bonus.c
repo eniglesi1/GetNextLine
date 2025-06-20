@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils_bonus.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eniglesi <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: eiglesia <eiglesia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 21:49:20 by eniglesi          #+#    #+#             */
-/*   Updated: 2022/02/16 21:49:24 by eniglesi         ###   ########.fr       */
+/*   Updated: 2025/06/20 23:10:08 by eiglesia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,10 +45,10 @@ char	*ft_realloc(char *s1, int j)
 		i++;
 	i += j;
 	if (i == 0)
-		return (s1);
+		return (free(s1), NULL);
 	a = malloc(sizeof(char) * i + 1);
 	if (!a)
-		return (s1);
+		return (free(s1), NULL);
 	n = sizeof(char) * i + 1;
 	while (n > 0)
 	{
@@ -79,6 +79,21 @@ int	leer(int fd, char *extra)
 	int	baits;
 
 	baits = read(fd, extra, BUFFER_SIZE);
-	extra[baits] = 0;
+	if (baits != -1)
+		extra[baits] = 0;
+	else
+		extra[0] = 0;
 	return (baits);
+}
+
+int	ft_is_line(char *extra)
+{
+	int	i;
+
+	i = 0;
+	while (extra[i] != '\n' && extra[i])
+		i++;
+	if (extra[i] == '\n')
+		return (i);
+	return (-1);
 }
