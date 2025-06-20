@@ -6,7 +6,7 @@
 /*   By: eiglesia <eiglesia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/13 17:23:08 by eniglesi          #+#    #+#             */
-/*   Updated: 2025/06/13 17:40:00 by eiglesia         ###   ########.fr       */
+/*   Updated: 2025/06/20 23:17:42 by eiglesia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,5 +27,6 @@ char	*ft_realloc(char *s1, int i);
 size_t	ft_strlcpy(char *dst, const char *src, size_t size);
 int		ft_copynl(char *extra, int baits, char *string, int aux);
 int		leer(int fd, char *extra);
+void	*ft_calloc(size_t nmemb, size_t size);
 
 #endif

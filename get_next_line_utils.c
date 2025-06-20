@@ -6,7 +6,7 @@
 /*   By: eiglesia <eiglesia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/13 12:47:28 by eniglesi          #+#    #+#             */
-/*   Updated: 2025/06/13 19:22:33 by eiglesia         ###   ########.fr       */
+/*   Updated: 2025/06/21 00:13:10 by eiglesia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ char	*ft_realloc(char *s1, int j)
 {
 	char	*a;
 	int		i;
-	int		n;
 
 	i = 0;
 	while (s1[i] != '\0')
@@ -46,15 +45,9 @@ char	*ft_realloc(char *s1, int j)
 	i += j;
 	if (i == 0)
 		return (free(s1), NULL);
-	a = malloc(sizeof(char) * i + 1);
+	a = ft_calloc(sizeof(char), i);
 	if (!a)
 		return (free(s1), NULL);
-	n = sizeof(char) * i + 1;
-	while (n > 0)
-	{
-		n--;
-		((char *)a)[n] = '\0';
-	}
 	ft_strlcpy(a, s1, (i - j) + 1);
 	free(s1);
 	return (a);

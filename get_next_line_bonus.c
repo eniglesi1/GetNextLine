@@ -6,7 +6,7 @@
 /*   By: eiglesia <eiglesia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 21:46:34 by eniglesi          #+#    #+#             */
-/*   Updated: 2025/06/20 23:06:42 by eiglesia         ###   ########.fr       */
+/*   Updated: 2025/06/21 01:00:19 by eiglesia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ static char	*clean_buf_return_line(char *string, char *extra, int aux, int u)
 		else if (!extra[i])
 			extra[0] = 0;
 	}
-	return (ft_realloc(string, 0));
+	return (ft_realloc(string, 0, ft_is_line(string, 0)));
 }
 
 static int	copy_nl(char *string, char *extra)
@@ -76,19 +76,25 @@ static char	*get_line(int fd, char *extra)
 	char			*string;
 	int				baits;
 	int				aux;
+	int				cap;
+	int				len;
 
+	cap = BUFFER_SIZE;
 	string = ft_calloc(sizeof(char), BUFFER_SIZE + 1);
 	if (string == NULL)
 		return (NULL);
 	aux = copy_nl(string, extra);
 	if (extra[aux])
 		return (clean_buf_return_line(string, extra, aux, 0));
-	while (ft_is_line(extra) == -1)
+	len = ft_is_line(string, 0);
+	while (ft_is_line(extra, 1) == -1)
 	{
 		baits = leer(fd, extra);
 		if (baits == 0 || baits == -1)
 			break ;
-		string = ft_realloc(string, baits);
+		len += baits;
+		if (len > cap)
+			string = ft_realloc(string, baits, (cap = cap * 2));
 		if (string == NULL || extra[0] == 0)
 			return (clean_buf_return_line(string, extra, aux, 1));
 		aux = ft_copynl(extra, baits, string, aux);

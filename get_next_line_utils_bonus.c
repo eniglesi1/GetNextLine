@@ -6,7 +6,7 @@
 /*   By: eiglesia <eiglesia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 21:49:20 by eniglesi          #+#    #+#             */
-/*   Updated: 2025/06/20 23:10:08 by eiglesia         ###   ########.fr       */
+/*   Updated: 2025/06/21 00:12:46 by eiglesia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,15 +34,13 @@ size_t	ft_strlcpy(char *dst, const char *src, size_t size)
 	return (i);
 }
 
-char	*ft_realloc(char *s1, int j)
+char	*ft_realloc(char *s1, int j, int len)
 {
 	char	*a;
 	int		i;
 	int		n;
 
-	i = 0;
-	while (s1[i] != '\0')
-		i++;
+	i = len;
 	i += j;
 	if (i == 0)
 		return (free(s1), NULL);
@@ -86,14 +84,16 @@ int	leer(int fd, char *extra)
 	return (baits);
 }
 
-int	ft_is_line(char *extra)
+int	ft_is_line(char *extra, int len)
 {
 	int	i;
 
 	i = 0;
 	while (extra[i] != '\n' && extra[i])
 		i++;
-	if (extra[i] == '\n')
+	while (len == 0 && extra[i])
+		i++;
+	if (extra[i] == '\n' || len == 0)
 		return (i);
 	return (-1);
 }

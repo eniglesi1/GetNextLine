@@ -6,18 +6,18 @@
 /*   By: eiglesia <eiglesia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/13 12:47:14 by eniglesi          #+#    #+#             */
-/*   Updated: 2025/06/13 16:24:12 by eiglesia         ###   ########.fr       */
+/*   Updated: 2025/06/21 00:11:39 by eiglesia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-static void	*ft_calloc(size_t nmemb, size_t size)
+void	*ft_calloc(size_t nmemb, size_t size)
 {
 	void	*a;
 	int		n;
 
-	n = nmemb * size;
+	n = nmemb * size + 1;
 	a = malloc(nmemb * size + 1);
 	if (!a)
 		return (NULL);
@@ -89,7 +89,9 @@ char	*get_next_line(int fd)
 	static char		extra[BUFFER_SIZE + 1];
 	int				baits;
 	int				aux;
+	// int				cap;
 
+	// cap = BUFFER_SIZE;
 	string = ft_calloc(sizeof(char), BUFFER_SIZE + 1);
 	if (string == NULL)
 		return (NULL);
