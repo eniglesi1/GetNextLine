@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*   By: eiglesia <eiglesia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 21:46:34 by eniglesi          #+#    #+#             */
-/*   Updated: 2025/06/21 14:19:10 by codespace        ###   ########.fr       */
+/*   Updated: 2025/06/21 22:50:49 by eiglesia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,10 @@ static char	*get_line(int fd, char *extra)
 	int				len;
 
 	cap = BUFFER_SIZE;
-	string = ft_calloc(sizeof(char), BUFFER_SIZE + 1);
+	if (extra && (len = ft_is_line(extra, 1)) != -1)
+		string = ft_calloc(sizeof(char), len + 2);
+	else
+		string = ft_calloc(sizeof(char), BUFFER_SIZE + 1);
 	if (string == NULL)
 		return (NULL);
 	aux = copy_nl(string, extra);
@@ -108,7 +111,7 @@ char	*get_next_line(int fd)
 {
 	static char	extra[OPEN_MAX][BUFFER_SIZE + 1];
 
-	if (fd > OPEN_MAX || fd < 0 || BUFFER_SIZE <= 0)
+	if (fd > OPEN_MAX || fd < 0 || BUFFER_SIZE <= 0 || read(fd, 0, 0) == -1)
 		return (NULL);
 	return (get_line(fd, extra[fd]));
 }
