@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_bonus.h                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eiglesia <eiglesia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 21:47:56 by eniglesi          #+#    #+#             */
-/*   Updated: 2025/06/21 00:14:46 by eiglesia         ###   ########.fr       */
+/*   Updated: 2025/06/21 17:36:24 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,10 @@
 
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 42
+# endif
+
+# ifndef OPEN_MAX
+#  define OPEN_MAX 1000
 # endif
 
 char	*get_next_line(int fd);

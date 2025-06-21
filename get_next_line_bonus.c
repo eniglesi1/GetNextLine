@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eiglesia <eiglesia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 21:46:34 by eniglesi          #+#    #+#             */
-/*   Updated: 2025/06/21 01:00:19 by eiglesia         ###   ########.fr       */
+/*   Updated: 2025/06/21 14:19:10 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,9 +106,9 @@ static char	*get_line(int fd, char *extra)
 
 char	*get_next_line(int fd)
 {
-	static char	extra[FOPEN_MAX][BUFFER_SIZE + 1];
+	static char	extra[OPEN_MAX][BUFFER_SIZE + 1];
 
-	if (fd > FOPEN_MAX || fd < 0 || BUFFER_SIZE <= 0)
+	if (fd > OPEN_MAX || fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
 	return (get_line(fd, extra[fd]));
 }
