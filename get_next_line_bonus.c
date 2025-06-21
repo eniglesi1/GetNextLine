@@ -6,7 +6,7 @@
 /*   By: eiglesia <eiglesia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 21:46:34 by eniglesi          #+#    #+#             */
-/*   Updated: 2025/06/21 22:50:49 by eiglesia         ###   ########.fr       */
+/*   Updated: 2025/06/22 00:43:10 by eiglesia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,7 @@ char	*get_next_line(int fd)
 {
 	static char	extra[OPEN_MAX][BUFFER_SIZE + 1];
 
-	if (fd > OPEN_MAX || fd < 0 || BUFFER_SIZE <= 0 || read(fd, 0, 0) == -1)
+	if (fd > OPEN_MAX || fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
 	return (get_line(fd, extra[fd]));
 }

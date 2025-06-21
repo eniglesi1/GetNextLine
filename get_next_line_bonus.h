@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_bonus.h                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*   By: eiglesia <eiglesia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 21:47:56 by eniglesi          #+#    #+#             */
-/*   Updated: 2025/06/21 17:36:24 by codespace        ###   ########.fr       */
+/*   Updated: 2025/06/22 00:43:39 by eiglesia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 # endif
 
 # ifndef OPEN_MAX
-#  define OPEN_MAX 1000
+#  define OPEN_MAX 128
 # endif
 
 char	*get_next_line(int fd);
