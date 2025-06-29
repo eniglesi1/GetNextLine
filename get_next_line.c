@@ -6,7 +6,7 @@
 /*   By: eiglesia <eiglesia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 21:46:34 by eniglesi          #+#    #+#             */
-/*   Updated: 2025/06/29 14:13:53 by eiglesia         ###   ########.fr       */
+/*   Updated: 2025/06/29 19:25:35 by eiglesia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,34 +76,4 @@ char	*get_next_line(int fd)
 	if (fd > OPEN_MAX || fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
 	return (get_line(fd, extra[fd]));
-}
-
-char	*get_next_line(int fd)
-{
-	char			*string;
-	static char		extra[BUFFER_SIZE + 1];
-	int				baits;
-	int				aux;
-	// int				cap;
-
-	// cap = BUFFER_SIZE;
-	string = ft_calloc(sizeof(char), BUFFER_SIZE + 1);
-	if (string == NULL)
-		return (NULL);
-	aux = copy_nl(string, extra);
-	if (extra[aux])
-		return (ft_clean(string, extra, aux, 0));
-	while (ft_is_line(extra) == -1)
-	{
-		baits = leer(fd, extra);
-		if (baits == 0 || baits == -1)
-			break ;
-		string = ft_realloc(string, baits);
-		if (string == NULL || extra[0] == 0)
-			return (ft_clean(string, extra, aux, 1));
-		aux = ft_copynl(extra, baits, string, aux);
-	}
-	if ((baits == 0 && !string[0]) || baits == -1)
-		return (ft_clean(string, extra, aux, 1));
-	return (ft_clean(string, extra, aux, 0));
 }
