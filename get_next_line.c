@@ -5,12 +5,12 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: eiglesia <eiglesia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/16 21:46:34 by eniglesi          #+#    #+#             */
-/*   Updated: 2025/06/29 19:25:35 by eiglesia         ###   ########.fr       */
+/*   Created: 2022/02/16 21:46:34 by eiglesia          #+#    #+#             */
+/*   Updated: 2025/07/01 17:55:02 by eiglesia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line_bonus.h"
+#include "get_next_line.h"
 
 static char	*ft_clean(char *string, char *extra, int len, int u)
 {

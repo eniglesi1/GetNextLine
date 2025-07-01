@@ -5,12 +5,12 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: eiglesia <eiglesia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/16 21:49:20 by eniglesi          #+#    #+#             */
-/*   Updated: 2025/06/29 17:36:53 by eiglesia         ###   ########.fr       */
+/*   Created: 2022/02/16 21:49:20 by eiglesia          #+#    #+#             */
+/*   Updated: 2025/07/01 17:54:56 by eiglesia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line_bonus.h"
+#include "get_next_line.h"
 //37.45/31.26
 //06.87/5.55
 //29.47T/26.31NT

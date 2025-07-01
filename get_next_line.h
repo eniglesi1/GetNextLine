@@ -5,13 +5,13 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: eiglesia <eiglesia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/16 21:47:56 by eniglesi          #+#    #+#             */
-/*   Updated: 2025/06/29 17:36:59 by eiglesia         ###   ########.fr       */
+/*   Created: 2022/02/16 21:47:56 by eiglesia          #+#    #+#             */
+/*   Updated: 2025/07/01 17:54:28 by eiglesia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_BONUS_H
-# define GET_NEXT_LINE_BONUS_H
+#ifndef GET_NEXT_LINE_H
+# define GET_NEXT_LINE_H
 # include <unistd.h>
 # include <stdlib.h>
 # include <string.h>
